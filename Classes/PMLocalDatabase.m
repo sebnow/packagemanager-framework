@@ -20,7 +20,68 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#import <PackageManager/PMPackage.h>
-#import <PackageManager/PMDatabase.h>
-#import <PackageManager/PMLocalDatabase.h>
-#import <PackageManager/PMRepository.h>
+#import "PMLocalDatabase.h"
+#import <alpm.h>
+
+@implementation PMLocalDatabase
+
+#pragma mark Singleton bioilerplate
+
+static PMLocalDatabase *_sharedDatabase = nil;
+
++ (PMLocalDatabase *) sharedDatabase
+{
+	@synchronized(self) {
+		if(_sharedDatabase == nil) {
+			[[self alloc] init];
+		}
+	}
+	return _sharedDatabase;
+}
+
++ (id) allocWithZone:(NSZone *)zone
+{
+	@synchronized(self) {
+		if(_sharedDatabase == nil) {
+			_sharedDatabase = [super allocWithZone:zone];
+			return _sharedDatabase;
+		}
+	}
+	return nil;
+}
+
+- (id) init
+{
+	self = [super init];
+	if(self) {
+		_database = alpm_db_register_local();
+	}
+	return self;
+}
+
+- (id) copyWithZone:(NSZone *)zone
+{
+	return self;
+}
+
+- (id) retain
+{
+	return self;
+}
+
+- (unsigned) retainCount
+{
+	return UINT_MAX;
+}
+
+- (void) release
+{
+	return;
+}
+
+- (id) autorelease
+{
+	return self;
+}
+
+@end

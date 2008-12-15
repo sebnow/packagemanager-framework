@@ -20,7 +20,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#import <PackageManager/PMPackage.h>
-#import <PackageManager/PMDatabase.h>
-#import <PackageManager/PMLocalDatabase.h>
-#import <PackageManager/PMRepository.h>
+#import <Foundation/Foundation.h>
+#import "PMDatabase.h"
+
+@interface PMLocalDatabase : PMDatabase {
+
+}
+
++ (PMLocalDatabase *) sharedDatabase;
+
+@end
