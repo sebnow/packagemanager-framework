@@ -54,9 +54,10 @@
 - (void) addServerWithURL:(NSURL *)theURL
 {
 	const char *urlUTF8 = [[theURL path] UTF8String];
-	if(alpm_db_setserver(_database, urlUTF8) == 0) {
-		[_servers addObject:theURL];
-	}
+	int status;
+	status = alpm_db_setserver(_database, urlUTF8);
+	NSAssert(status == 0, @"database not registered");
+	[_servers addObject:theURL];
 }
 
 - (void) refresh
