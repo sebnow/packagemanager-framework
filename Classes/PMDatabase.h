@@ -22,6 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class PMPackage;
+
 @interface PMDatabase : NSObject {
 @package
 	struct __pmdb_t *_database;
@@ -29,5 +31,6 @@
 
 - (NSArray *) filteredPackagesUsingPredicate:(NSPredicate *)thePredicate;
 - (NSArray *) packages;
+- (PMPackage *) packageWithName:(NSString *)aName;
 
 @end

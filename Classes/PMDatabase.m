@@ -65,4 +65,17 @@
 	return [packages filteredArrayUsingPredicate:thePredicate];
 }
 
+- (PMPackage *) packageWithName:(NSString *)aName
+{
+	NSPredicate *predicate;
+	NSArray *results;
+	PMPackage *package = nil;
+	predicate = [NSPredicate predicateWithFormat:@"SELF.name == %@", aName];
+	results = [[self packages] filteredArrayUsingPredicate:predicate];
+	if([results count] > 0) {
+		package = [results objectAtIndex:0];
+	}
+	return package;
+}
+
 @end
