@@ -20,8 +20,35 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#import <PackageManager/PMPackage.h>
-#import <PackageManager/PMDatabase.h>
-#import <PackageManager/PMLocalDatabase.h>
-#import <PackageManager/PMRepository.h>
-#import <PackageManager/PMTransaction.h>
+#import <Foundation/Foundation.h>
+
+@class PMPackage;
+
+@protocol PMTransactionDelegate;
+
+@interface PMTransaction : NSObject {
+	NSMutableArray *_removeTargets;
+	NSMutableArray *_syncTargets;
+	id<PMTransactionDelegate> _delegate;
+	int _flags;
+}
+
+@property (nonatomic, retain) id<PMTransactionDelegate> delegate;
+@property (nonatomic, assign) BOOL force;
+@property (nonatomic, assign, getter=isRecursive) BOOL recursive;
+@property (nonatomic, assign) BOOL cascade;
+// Only install the targets that are not already installed and up-to-date.
+@property (nonatomic, assign) BOOL neededOnly;
+@property (nonatomic, assign) BOOL downloadOnly;
+
+- (id) init;
+- (void) synchronizePackage:(PMPackage *)thePackage;
+- (void) removePackage:(PMPackage *)thePackage;
+- (void) commit;
+
+@end
+
+@protocol PMTransactionDelegate
+@optional
+- (BOOL) transaction:(PMTransaction *)aTransaction shouldRemoveCorruptPackageArchive:(NSString *)filename;
+@end
