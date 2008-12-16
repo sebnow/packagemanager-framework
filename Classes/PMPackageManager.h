@@ -20,9 +20,21 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#import <PackageManager/PMPackage.h>
-#import <PackageManager/PMDatabase.h>
-#import <PackageManager/PMLocalDatabase.h>
-#import <PackageManager/PMRepository.h>
-#import <PackageManager/PMTransaction.h>
-#import <PackageManager/PMPackageManager.h>
+#import <Foundation/Foundation.h>
+
+@interface PMPackageManager : NSObject {
+	NSString *_rootDirectory;
+	NSString *_databasePath;
+	NSMutableArray *_cacheDirectories;
+}
+
+@property (nonatomic, readonly) NSArray *cacheDirectories;
+@property (nonatomic, copy) NSString *databasePath;
+@property (nonatomic, copy) NSString *rootDirectory;
+
++ (PMPackageManager *) sharedManager;
++ (void) deallocate;
+- (void) addCacheDirectory:(NSString *)thePath;
+- (void) removeCacheDirectory:(NSString *)thePath;
+
+@end
