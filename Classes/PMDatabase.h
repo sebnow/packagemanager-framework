@@ -25,10 +25,11 @@
 @class PMPackage;
 
 @interface PMDatabase : NSObject {
-@package
 	struct __pmdb_t *_database;
+	NSString *_name;
 }
 
+- (NSString *) name;
 - (NSArray *) filteredPackagesUsingPredicate:(NSPredicate *)thePredicate;
 - (NSArray *) packages;
 - (PMPackage *) packageWithName:(NSString *)aName;

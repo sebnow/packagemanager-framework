@@ -24,20 +24,13 @@
 #import <alpm.h>
 #import "PMPackage.h"
 
-@interface PMTransaction ()
+@interface PMTransaction (Private)
 - (void) _setFlag:(pmtransflag_t)flag;
 - (void) _unsetFlag:(pmtransflag_t)flag;
 - (void) _setOrUnsetFlag:(pmtransflag_t)flag dependingOnBool:(BOOL)value;
 @end
 
 @implementation PMTransaction
-
-@synthesize delegate = _delegate;
-@dynamic force;
-@dynamic cascade;
-@dynamic recursive;
-@dynamic neededOnly;
-@dynamic downloadOnly;
 
 - (id) init
 {
@@ -51,14 +44,28 @@
 
 #pragma mark Properties
 
-- (BOOL) force
+
+- (id) delegate
+{
+	return _delegate;
+}
+
+- (void) setDelegate:(id)anObject
+{
+	if(_delegate != anObject) {
+		[_delegate release];
+		_delegate = [anObject retain];
+	}
+}
+
+- (BOOL) isForced
 {
 	return _flags && PM_TRANS_FLAG_FORCE;
 }
 
-- (void) setForce:(BOOL)force
+- (void) setForced:(BOOL)forced
 {
-	[self _setOrUnsetFlag:PM_TRANS_FLAG_FORCE dependingOnBool:force];
+	[self _setOrUnsetFlag:PM_TRANS_FLAG_FORCE dependingOnBool:forced];
 }
 
 - (BOOL) isRecursive
@@ -116,6 +123,7 @@
 - (void) commit
 {
 	PMPackage *package;
+	NSEnumerator *enumerator;
 	alpm_list_t *conflicts;
 	int status;
 
@@ -123,7 +131,8 @@
 	if([_removeTargets count] > 0) {
 		status = alpm_trans_init(PM_TRANS_TYPE_REMOVE, _flags, NULL, NULL, NULL);
 		NSAssert(status == 0, @"unable to initialise transaction");
-		for(package in _removeTargets) {
+		enumerator = [_removeTargets objectEnumerator];
+		while((package = [enumerator nextObject]) != nil) {
 			alpm_trans_addtarget((char *)[[package name] UTF8String]);
 		}
 		if(alpm_trans_prepare(&conflicts) != 0) {
@@ -140,7 +149,8 @@
 	if([_syncTargets count] > 0) {
 		status = alpm_trans_init(PM_TRANS_TYPE_UPGRADE, _flags, NULL, NULL, NULL);
 		NSAssert(status == 0, @"unable to initialise transaction");
-		for(package in _syncTargets) {
+		enumerator = [_syncTargets objectEnumerator];
+		while((package = [enumerator nextObject]) != nil) {
 			alpm_trans_addtarget((char *)[[package name] UTF8String]);
 		}
 		if(alpm_trans_prepare(&conflicts) != 0) {

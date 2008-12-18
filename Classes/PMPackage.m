@@ -23,21 +23,37 @@
 #import "PMPackage.h"
 #import <alpm.h>
 #import <alpm_list.h>
+#import <string.h>
 #import "PMDatabase.h"
 
+#define kLocalDatabaseName "local"
+
 @implementation PMPackage
-@synthesize name = _name;
-@synthesize version = _version;
-@synthesize database = _database;
-@synthesize description = _description;
-@synthesize packager = _packager;
-@synthesize size = _size;
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase
 {
 	self = [super init];
 	if(self != nil) {
-		_package = alpm_db_get_pkg(theDatabase->_database, [aName UTF8String]);
+		alpm_list_t *node;
+		pmdb_t *db = NULL;
+		pmdb_t *tmpdb;
+		const char *dbname = [[theDatabase name] UTF8String];
+		const char *pkgname = [aName UTF8String];
+
+		// This is stupid, PMDatabase has a reference to the pmdb_t
+		if(strcmp(dbname, kLocalDatabaseName) == 0) {
+			db = alpm_option_get_localdb();
+		} else {
+			node = alpm_option_get_syncdbs();
+			while(node != NULL && db == NULL) {
+				node = alpm_list_next(node);
+				tmpdb = alpm_list_getdata(node);
+				if(strcmp(dbname, alpm_db_get_name(db)) == 0) {
+					db = tmpdb;
+				}
+			}
+		}
+		_package = alpm_db_get_pkg(db, pkgname);
 		if(_package == NULL) {
 			return nil;
 		}
@@ -94,5 +110,21 @@
 	}
 	return _url;
 }
+
+- (NSString *)name
+{
+	return _name;
+}
+
+- (NSString *)version
+{
+	return _version;
+}
+
+- (PMDatabase *)database
+{
+	return _database;
+}
+
 
 @end

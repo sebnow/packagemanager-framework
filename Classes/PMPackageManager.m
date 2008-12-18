@@ -32,9 +32,6 @@ static void __attribute__((destructor)) __release_alpm()
 }
 
 @implementation PMPackageManager
-@synthesize rootDirectory = _rootDirectory;
-@synthesize databasePath = _databasePath;
-@synthesize cacheDirectories;
 
 #pragma mark Singleton bioilerplate
 

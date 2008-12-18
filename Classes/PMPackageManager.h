@@ -28,12 +28,14 @@
 	NSMutableArray *_cacheDirectories;
 }
 
-@property (nonatomic, readonly) NSArray *cacheDirectories;
-@property (nonatomic, copy) NSString *databasePath;
-@property (nonatomic, copy) NSString *rootDirectory;
-
 + (PMPackageManager *) sharedManager;
 + (void) deallocate;
+
+- (NSString *) rootDirectory;
+- (void) setRootDirectory:(NSString *)newPath;
+- (NSString *) databasePath;
+- (void) setDatabasePath:(NSString *)newPath;
+- (NSArray *) cacheDirectories;
 - (void) addCacheDirectory:(NSString *)thePath;
 - (void) removeCacheDirectory:(NSString *)thePath;
 

@@ -25,7 +25,6 @@
 @class PMDatabase;
 
 @interface PMPackage : NSObject {
-@package
 	struct __pmpkg_t *_package;
 	PMDatabase *_database;
 	NSString *_name;
@@ -36,13 +35,12 @@
 	NSNumber *_size;
 }
 
-@property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSString *version;
-@property (nonatomic, readonly) NSURL *url;
-@property (nonatomic, readonly) PMDatabase *database;
-@property (nonatomic, readonly) NSString *description;
-@property (nonatomic, readonly) NSString *packager;
-@property (nonatomic, readonly) NSNumber *size;
+- (NSString *)name;
+- (NSString *)version;
+- (NSURL *)url;
+- (PMDatabase *)database;
+- (NSString *)packager;
+- (NSNumber *)size;
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase;
 

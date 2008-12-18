@@ -24,22 +24,26 @@
 
 @class PMPackage;
 
-@protocol PMTransactionDelegate;
-
 @interface PMTransaction : NSObject {
 	NSMutableArray *_removeTargets;
 	NSMutableArray *_syncTargets;
-	id<PMTransactionDelegate> _delegate;
+	id _delegate;
 	int _flags;
 }
 
-@property (nonatomic, retain) id<PMTransactionDelegate> delegate;
-@property (nonatomic, assign) BOOL force;
-@property (nonatomic, assign, getter=isRecursive) BOOL recursive;
-@property (nonatomic, assign) BOOL cascade;
+- (id) delegate;
+- (void) setDelegate:(id)anObject;
+- (BOOL) isForced;
+- (void) setForced:(BOOL)forced;
+- (BOOL) isRecursive;
+- (void) setRecursive:(BOOL)recurse;
+- (BOOL) cascade;
+- (void) setCascade:(BOOL)cascade;
 // Only install the targets that are not already installed and up-to-date.
-@property (nonatomic, assign) BOOL neededOnly;
-@property (nonatomic, assign) BOOL downloadOnly;
+- (BOOL) neededOnly;
+- (void) setNeededOnly:(BOOL)neededOnly;
+- (BOOL) downloadOnly;
+- (void) setDownloadOnly:(BOOL)downloadOnly;
 
 - (id) init;
 - (void) synchronizePackage:(PMPackage *)thePackage;
@@ -48,7 +52,7 @@
 
 @end
 
-@protocol PMTransactionDelegate
-@optional
+@interface NSObject (PMTransactionDelegate)
 - (BOOL) transaction:(PMTransaction *)aTransaction shouldRemoveCorruptPackageArchive:(NSString *)filename;
 @end
+
