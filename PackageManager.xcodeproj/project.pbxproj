@@ -250,10 +250,11 @@
 				GCC_PREFIX_HEADER = PackageManager_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = "-lalpm";
 				PRODUCT_NAME = PackageManager;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -271,10 +272,11 @@
 				GCC_PREFIX_HEADER = PackageManager_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = "-lalpm";
 				PRODUCT_NAME = PackageManager;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
