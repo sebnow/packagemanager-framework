@@ -111,7 +111,7 @@
 				9E44BB040EF812D200D82117 /* PMPackageManager.h */,
 				9E44BB050EF812D200D82117 /* PMPackageManager.m */,
 			);
-			path = Classes;
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
@@ -135,7 +135,7 @@
 				32DBCF5E0370ADEE00C91783 /* PackageManager_Prefix.pch */,
 				9E2019590EF3D748009571F1 /* PackageManager.h */,
 			);
-			path = "Other Sources";
+			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,7 +247,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Other Sources/PackageManager_Prefix.pch";
+				GCC_PREFIX_HEADER = PackageManager_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
@@ -268,7 +268,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Other Sources/PackageManager_Prefix.pch";
+				GCC_PREFIX_HEADER = PackageManager_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
