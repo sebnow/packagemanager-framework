@@ -1,3 +1,7 @@
 /build/
 /PackageManager.xcodeproj/
 .DS_Store
+/PackageManager.framework/
+/derived_src/
+/obj/
+
