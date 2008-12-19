@@ -1,2 +1,2 @@
-ADDITIONAL_OBJCFLAGS = -Werror
+ADDITIONAL_OBJCFLAGS = -Wall -Werror -Wno-error=unknown-pragmas
 
