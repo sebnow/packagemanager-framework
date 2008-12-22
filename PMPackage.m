@@ -46,11 +46,11 @@
 		} else {
 			node = alpm_option_get_syncdbs();
 			while(node != NULL && db == NULL) {
-				node = alpm_list_next(node);
 				tmpdb = alpm_list_getdata(node);
-				if(strcmp(dbname, alpm_db_get_name(db)) == 0) {
+				if(strcmp(dbname, alpm_db_get_name(tmpdb)) == 0) {
 					db = tmpdb;
 				}
+				node = alpm_list_next(node);
 			}
 		}
 		_package = alpm_db_get_pkg(db, pkgname);
