@@ -22,10 +22,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class PMRepository;
+
 @interface PMPackageManager : NSObject {
 	NSString *_rootDirectory;
 	NSString *_databasePath;
 	NSMutableArray *_cacheDirectories;
+	NSMutableArray *_repositories;
 }
 
 + (PMPackageManager *) sharedManager;
@@ -38,5 +41,9 @@
 - (NSArray *) cacheDirectories;
 - (void) addCacheDirectory:(NSString *)thePath;
 - (void) removeCacheDirectory:(NSString *)thePath;
-
+- (PMRepository *) repositoryByRegisteringWithName:(NSString *)aName servers:(NSArray *)servers;
+- (void) addRepository:(PMRepository *)aRepository;
+- (void) removeRepository:(PMRepository *)aRepository;
+- (NSArray *) repositories;
+- (void) refreshRepositories;
 @end

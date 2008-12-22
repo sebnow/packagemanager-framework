@@ -22,6 +22,7 @@
 
 #import "PMPackageManager.h"
 #import <alpm.h>
+#import "PMRepository.h"
 
 static PMPackageManager *_sharedManager = nil;
 
@@ -61,6 +62,7 @@ static void __attribute__((destructor)) __release_alpm()
 	self = [super init];
 	if(self != nil) {
 		_cacheDirectories = [NSMutableArray new];
+		_repositories = [NSMutableArray new];
 	}
 	return self;
 }
@@ -135,6 +137,11 @@ static void __attribute__((destructor)) __release_alpm()
 	return [NSArray arrayWithArray:_cacheDirectories];
 }
 
+- (NSArray *) repositories
+{
+	return _repositories;
+}
+
 #pragma mark Public methods
 
 + (void) initialize
@@ -159,6 +166,36 @@ static void __attribute__((destructor)) __release_alpm()
 	if(alpm_option_remove_cachedir([thePath UTF8String]) == 0) {
 		[_cacheDirectories removeObject:thePath];
 	}
+}
+
+- (PMRepository *) repositoryByRegisteringWithName:(NSString *)aName servers:(NSArray *)servers;
+{
+	PMRepository *repository;
+	repository = [[PMRepository alloc] initWithName:aName servers:servers];
+	[_repositories addObject:repository];
+	return [repository autorelease];
+}
+
+- (void) addRepository:(PMRepository *)aRepository
+{
+	[_repositories addObject:aRepository];
+}
+
+- (void) removeRepository:(PMRepository *)aRepository
+{
+	[_repositories removeObject:aRepository];
+}
+
+- (void) refreshRepositories
+{
+	alpm_list_t *node;
+	alpm_trans_init(PM_TRANS_TYPE_SYNC, 0, NULL, NULL, NULL);
+	node = alpm_option_get_syncdbs();
+	while(node != NULL) {
+		alpm_db_update(0, alpm_list_getdata(node));
+		node = alpm_list_next(node);
+	}
+	alpm_trans_release();
 }
 
 @end
