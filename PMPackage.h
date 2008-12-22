@@ -27,6 +27,7 @@
 @interface PMPackage : NSObject {
 	struct __pmpkg_t *_package;
 	PMDatabase *_database;
+	NSString *_filename;
 	NSString *_name;
 	NSString *_version;
 	NSURL *_url;
@@ -41,7 +42,9 @@
 - (PMDatabase *)database;
 - (NSString *)packager;
 - (NSNumber *)size;
+- (NSString *)filename;
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase;
-
+- (id) initWithContentsOfURL:(NSURL *)theURL;
+- (id) initWithContentsOfFile:(NSString *)aFilePath;
 @end

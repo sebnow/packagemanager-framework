@@ -64,9 +64,40 @@
 	return self;
 }
 
+- (id) initWithContentsOfURL:(NSURL *)theURL
+{
+	NSString *filePath;
+	if(![theURL isFileURL]) {
+		char *path = alpm_fetch_pkgurl([[theURL path] UTF8String]);
+		if(path == NULL) {
+			return nil;
+		}
+		filePath = [[NSString alloc] initWithUTF8String:path];
+		free(path);
+	} else {
+		filePath = [theURL path];
+	}
+	return [self initWithContentsOfFile:filePath];
+}
+
+- (id) initWithContentsOfFile:(NSString *)aFilePath
+{
+	self = [super init];
+	if(self != nil) {
+		if(alpm_pkg_load([aFilePath UTF8String], 0, &_package) != 0) {
+			return nil;
+		}
+		_name = [[NSString alloc] initWithUTF8String:alpm_pkg_get_name(_package)];
+		_version = [[NSString alloc] initWithUTF8String:alpm_pkg_get_version(_package)];
+		_filename = [aFilePath copy];
+	}
+	return self;
+}
+
 - (void) dealloc
 {
 	[_database release];
+	[_filename release];
 	[_name release];
 	[_packager release];
 	[_version release];
@@ -126,5 +157,9 @@
 	return _database;
 }
 
+- (NSString *)filename
+{
+	return _filename;
+}
 
 @end
