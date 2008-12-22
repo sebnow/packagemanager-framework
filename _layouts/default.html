@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>{{ page.title }}</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		$(function() {
+			$.getJSON('http://github.com/api/v1/json/sebnow/packagemanager-framework?callback=?', function(data) {
+				var limit = 10;
+				$.each(data.commits.slice(0, limit), function() {
+					$('#recent-commits').append('<li><a href="' + this.url + '">' + this.message.split("\n")[0] + '</a> by ' + this.author.name + '</li>')
+				})
+			})        
+		})
+		</script>
+	</head>
+	<body>
+		{{ content }}
+	</body>
+</html>
