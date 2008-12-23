@@ -53,7 +53,7 @@
 
 - (void) addServerWithURL:(NSURL *)theURL
 {
-	const char *urlUTF8 = [[theURL path] UTF8String];
+	const char *urlUTF8 = [[theURL absoluteString] UTF8String];
 	int status;
 	status = alpm_db_setserver(_database, urlUTF8);
 	NSAssert(status == 0, @"database not registered");
