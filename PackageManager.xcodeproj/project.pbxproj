@@ -248,6 +248,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PackageManager_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = PM_DEBUG;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "@rpath";

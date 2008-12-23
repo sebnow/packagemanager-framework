@@ -32,6 +32,33 @@ static void __attribute__((destructor)) __release_alpm()
 	alpm_release();
 }
 
+#if defined(PM_DEBUG)
+void _log_callback(pmloglevel_t level, char *format, va_list args)
+{
+	NSString *levelStr;
+	NSString *fmt;
+	switch(level) {
+		case PM_LOG_DEBUG:
+			levelStr = @"debug";
+			break;
+		case PM_LOG_ERROR:
+			levelStr = @"error";
+			break;
+		case PM_LOG_WARNING:
+			levelStr = @"warning";
+			break;
+		case PM_LOG_FUNCTION:
+			levelStr = @"function";
+			break;
+		default:
+			levelStr = @"";
+	}
+	fmt = [[NSString alloc] initWithFormat:@"%@: %s", levelStr, format];
+	NSLogv(fmt, args);
+	[fmt release];
+}
+#endif
+
 @implementation PMPackageManager
 
 #pragma mark Singleton bioilerplate
@@ -147,6 +174,9 @@ static void __attribute__((destructor)) __release_alpm()
 + (void) initialize
 {
 	alpm_initialize();
+#if defined(PM_DEBUG)
+	alpm_option_set_logcb(_log_callback);
+#endif
 }
 
 + (void) deallocate
