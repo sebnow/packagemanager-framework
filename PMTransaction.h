@@ -49,6 +49,7 @@
 - (void) synchronizePackage:(PMPackage *)thePackage;
 - (void) removePackage:(PMPackage *)thePackage;
 - (void) commit;
+- (void) interrupt;
 
 @end
 

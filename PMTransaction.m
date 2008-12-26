@@ -165,6 +165,11 @@
 	}
 }
 
+- (void) interrupt
+{
+	alpm_trans_interrupt();
+}
+
 #pragma mark Private methods
 
 - (void) _setFlag:(pmtransflag_t)flag
