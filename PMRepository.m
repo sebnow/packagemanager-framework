@@ -24,7 +24,6 @@
 #import <alpm.h>
 
 @implementation PMRepository
-@synthesize servers = _servers;
 
 - (id) initWithName:(NSString *)aName
 {
@@ -68,6 +67,11 @@
 - (void) forceRefresh
 {
 	alpm_db_update(1, _database);
+}
+
+- (NSArray *) servers
+{
+	return _servers;
 }
 
 @end

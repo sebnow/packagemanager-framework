@@ -27,12 +27,11 @@
 	NSMutableArray *_servers;
 }
 
-@property (nonatomic, readonly) NSArray *servers;
-
 - (id) initWithName:(NSString *)aName;
 - (id) initWithName:(NSString *)aName servers:(NSArray *)theServers;
 - (void) addServerWithURL:(NSURL *)theURL;
 - (void) refresh;
 - (void) forceRefresh;
+- (NSArray *) servers;
 
 @end
