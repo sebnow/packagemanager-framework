@@ -45,6 +45,25 @@
 - (NSString *)filename;
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase;
+
+/** Initializes a package object with the package data from the location
+ specified by aURL.
+
+ If the location refers to a remote file, it will first be downloaded. The
+ download location will be one of the cache directories, or if none are
+ available, in the temporary directory.
+
+ Once the file has been downloaded the procedure is identical to
+ PMPackage::initWithContentsOfFile:
+
+ @param theURL url to the package file from which to read data
+ */
 - (id) initWithContentsOfURL:(NSURL *)theURL;
+
+/** Returns a package object initialized by reading into it the data from the
+ package specified by a given path.
+
+ @param aFilePath path of the package from which to read data
+ */
 - (id) initWithContentsOfFile:(NSString *)aFilePath;
 @end
