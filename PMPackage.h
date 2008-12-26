@@ -43,6 +43,7 @@
 - (NSString *)packager;
 - (NSNumber *)size;
 - (NSString *)filename;
+- (BOOL) isInstalled;
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase;
 

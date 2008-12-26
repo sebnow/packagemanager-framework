@@ -162,4 +162,11 @@
 	return _filename;
 }
 
+- (BOOL) isInstalled
+{
+	pmdb_t *local = alpm_option_get_localdb();
+	const char *pkgName = alpm_pkg_get_name(_package);
+	return alpm_db_get_pkg(local, pkgName) != NULL;
+}
+
 @end
