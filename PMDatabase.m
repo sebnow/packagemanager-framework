@@ -34,10 +34,6 @@
 
 - (NSString *) name
 {
-	if(_name == nil) {
-		const char *utf8name = alpm_db_get_name(_database);
-		_name = [[NSString alloc] initWithUTF8String:utf8name];
-	}
 	return _name;
 }
 

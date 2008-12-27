@@ -21,6 +21,7 @@
  */
 
 #import "PMRepository.h"
+#import "PMDatabasePrivate.h"
 #import <alpm.h>
 
 NSString *const PMRepositoryWillRefreshNotification = @"PMRepositoryWillRefreshNotification";
@@ -35,9 +36,9 @@ NSString *const PMRepositoryDidRefreshNotification = @"PMRepositoryDidRefreshNot
 
 - (id) initWithName:(NSString *)aName servers:(NSArray *)theServers
 {
-	self = [super init];
+	pmdb_t *db = alpm_db_register_sync([aName UTF8String]);
+	self = [super _initUsingALPMDatabase:db];
 	if(self != nil) {
-		_database = alpm_db_register_sync([aName UTF8String]);
 		if(theServers == nil) {
 			_servers = [NSMutableArray new];
 		} else {

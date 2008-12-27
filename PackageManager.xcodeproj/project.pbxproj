@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		9E0D7BF30F061B0C00A0D2F9 /* PMPackagePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E0D7BF10F061B0C00A0D2F9 /* PMPackagePrivate.h */; };
+		9E0D7BF40F061B0C00A0D2F9 /* PMPackagePrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D7BF20F061B0C00A0D2F9 /* PMPackagePrivate.m */; };
+		9E0D7BF90F061FE700A0D2F9 /* PMDatabasePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E0D7BF70F061FE700A0D2F9 /* PMDatabasePrivate.h */; };
+		9E0D7BFA0F061FE700A0D2F9 /* PMDatabasePrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D7BF80F061FE700A0D2F9 /* PMDatabasePrivate.m */; };
 		9E20195A0EF3D748009571F1 /* PackageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E2019590EF3D748009571F1 /* PackageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9E2019700EF4E71D009571F1 /* PMRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E20196E0EF4E71D009571F1 /* PMRepository.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9E2019710EF4E71D009571F1 /* PMRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E20196F0EF4E71D009571F1 /* PMRepository.m */; };
@@ -30,6 +34,10 @@
 		32DBCF5E0370ADEE00C91783 /* PackageManager_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackageManager_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* PackageManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PackageManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E0D7BF10F061B0C00A0D2F9 /* PMPackagePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPackagePrivate.h; sourceTree = "<group>"; };
+		9E0D7BF20F061B0C00A0D2F9 /* PMPackagePrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPackagePrivate.m; sourceTree = "<group>"; };
+		9E0D7BF70F061FE700A0D2F9 /* PMDatabasePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMDatabasePrivate.h; sourceTree = "<group>"; };
+		9E0D7BF80F061FE700A0D2F9 /* PMDatabasePrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDatabasePrivate.m; sourceTree = "<group>"; };
 		9E2019590EF3D748009571F1 /* PackageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackageManager.h; sourceTree = "<group>"; };
 		9E20196E0EF4E71D009571F1 /* PMRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMRepository.h; sourceTree = "<group>"; };
 		9E20196F0EF4E71D009571F1 /* PMRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMRepository.m; sourceTree = "<group>"; };
@@ -100,8 +108,12 @@
 			children = (
 				9E4BDE900EF15366000021DF /* PMDatabase.h */,
 				9E4BDE910EF15366000021DF /* PMDatabase.m */,
+				9E0D7BF70F061FE700A0D2F9 /* PMDatabasePrivate.h */,
+				9E0D7BF80F061FE700A0D2F9 /* PMDatabasePrivate.m */,
 				9E4BDE960EF153AE000021DF /* PMPackage.h */,
 				9E4BDE970EF153AE000021DF /* PMPackage.m */,
+				9E0D7BF10F061B0C00A0D2F9 /* PMPackagePrivate.h */,
+				9E0D7BF20F061B0C00A0D2F9 /* PMPackagePrivate.m */,
 				9E20196E0EF4E71D009571F1 /* PMRepository.h */,
 				9E20196F0EF4E71D009571F1 /* PMRepository.m */,
 				9E201BDB0EF69C5B009571F1 /* PMLocalDatabase.h */,
@@ -152,6 +164,8 @@
 				9E201BDD0EF69C5C009571F1 /* PMLocalDatabase.h in Headers */,
 				9E201B8E0EF62901009571F1 /* PMTransaction.h in Headers */,
 				9E44BB060EF812D200D82117 /* PMPackageManager.h in Headers */,
+				9E0D7BF30F061B0C00A0D2F9 /* PMPackagePrivate.h in Headers */,
+				9E0D7BF90F061FE700A0D2F9 /* PMDatabasePrivate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +231,8 @@
 				9E201BDE0EF69C5C009571F1 /* PMLocalDatabase.m in Sources */,
 				9E201B8F0EF62901009571F1 /* PMTransaction.m in Sources */,
 				9E44BB070EF812D200D82117 /* PMPackageManager.m in Sources */,
+				9E0D7BF40F061B0C00A0D2F9 /* PMPackagePrivate.m in Sources */,
+				9E0D7BFA0F061FE700A0D2F9 /* PMDatabasePrivate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

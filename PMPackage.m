@@ -25,6 +25,7 @@
 #import <alpm_list.h>
 #import <string.h>
 #import "PMDatabase.h"
+#import "PMPackagePrivate.h"
 
 #define kLocalDatabaseName "local"
 
@@ -32,34 +33,28 @@
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase
 {
-	self = [super init];
-	if(self != nil) {
-		alpm_list_t *node;
-		pmdb_t *db = NULL;
-		pmdb_t *tmpdb;
-		const char *dbname = [[theDatabase name] UTF8String];
-		const char *pkgname = [aName UTF8String];
+	alpm_list_t *node;
+	pmdb_t *db = NULL;
+	pmdb_t *tmpdb;
+	const char *dbname = [[theDatabase name] UTF8String];
+	const char *pkgname = [aName UTF8String];
 
-		// This is stupid, PMDatabase has a reference to the pmdb_t
-		if(strcmp(dbname, kLocalDatabaseName) == 0) {
-			db = alpm_option_get_localdb();
-		} else {
-			node = alpm_option_get_syncdbs();
-			while(node != NULL && db == NULL) {
-				tmpdb = alpm_list_getdata(node);
-				if(strcmp(dbname, alpm_db_get_name(tmpdb)) == 0) {
-					db = tmpdb;
-				}
-				node = alpm_list_next(node);
+	// This is stupid, PMDatabase has a reference to the pmdb_t
+	if(strcmp(dbname, kLocalDatabaseName) == 0) {
+		db = alpm_option_get_localdb();
+	} else {
+		node = alpm_option_get_syncdbs();
+		while(node != NULL && db == NULL) {
+			tmpdb = alpm_list_getdata(node);
+			if(strcmp(dbname, alpm_db_get_name(tmpdb)) == 0) {
+				db = tmpdb;
 			}
+			node = alpm_list_next(node);
 		}
-		_package = alpm_db_get_pkg(db, pkgname);
-		if(_package == NULL) {
-			return nil;
-		}
+	}
+	self = [self _initUsingALPMPackage:alpm_db_get_pkg(db, pkgname)];
+	if(self != nil) {
 		_database = [theDatabase retain];
-		_name = [[NSString alloc] initWithUTF8String:alpm_pkg_get_name(_package)];
-		_version = [[NSString alloc] initWithUTF8String:alpm_pkg_get_version(_package)];
 	}
 	return self;
 }
@@ -82,15 +77,11 @@
 
 - (id) initWithContentsOfFile:(NSString *)aFilePath
 {
-	self = [super init];
-	if(self != nil) {
-		if(alpm_pkg_load([aFilePath UTF8String], 0, &_package) != 0) {
-			return nil;
-		}
-		_name = [[NSString alloc] initWithUTF8String:alpm_pkg_get_name(_package)];
-		_version = [[NSString alloc] initWithUTF8String:alpm_pkg_get_version(_package)];
-		_filename = [aFilePath copy];
+	pmpkg_t *package;
+	if(alpm_pkg_load([aFilePath UTF8String], 0, &package) != 0) {
+		return nil;
 	}
+	self = [self _initUsingALPMPackage:package];
 	return self;
 }
 

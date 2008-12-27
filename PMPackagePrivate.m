@@ -20,66 +20,20 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#import "PMLocalDatabase.h"
+#import "PMPackagePrivate.h"
 #import "PMDatabasePrivate.h"
-#import <alpm.h>
 
-@implementation PMLocalDatabase
-
-#pragma mark Singleton bioilerplate
-
-static PMLocalDatabase *_sharedDatabase = nil;
-
-+ (PMLocalDatabase *) sharedDatabase
+@implementation PMPackage (Private)
+- (id) _initUsingALPMPackage:(pmpkg_t *)aPackage
 {
-	@synchronized(self) {
-		if(_sharedDatabase == nil) {
-			[[self alloc] init];
-		}
+	self = [super init];
+	if(self != nil) {
+		_package = aPackage;
+		// These fields are already retrieved from the database
+		_name = [[NSString alloc] initWithUTF8String:alpm_pkg_get_name(_package)];
+		_version = [[NSString alloc] initWithUTF8String:alpm_pkg_get_version(_package)];
+		_filename = [[NSString alloc] initWithUTF8String:alpm_pkg_get_filename(_package)];
 	}
-	return _sharedDatabase;
-}
-
-+ (id) allocWithZone:(NSZone *)zone
-{
-	@synchronized(self) {
-		if(_sharedDatabase == nil) {
-			_sharedDatabase = [super allocWithZone:zone];
-			return _sharedDatabase;
-		}
-	}
-	return nil;
-}
-
-- (id) init
-{
-	self = [super _initUsingALPMDatabase:alpm_db_register_local()];
 	return self;
 }
-
-- (id) copyWithZone:(NSZone *)zone
-{
-	return self;
-}
-
-- (id) retain
-{
-	return self;
-}
-
-- (unsigned) retainCount
-{
-	return UINT_MAX;
-}
-
-- (void) release
-{
-	return;
-}
-
-- (id) autorelease
-{
-	return self;
-}
-
 @end
