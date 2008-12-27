@@ -26,4 +26,5 @@
 
 @interface PMDatabase (Private)
 - (id) _initUsingALPMDatabase:(pmdb_t *)aDatabase;
+- (pmdb_t *) _database;
 @end

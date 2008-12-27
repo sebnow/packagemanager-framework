@@ -26,6 +26,7 @@
 #import <string.h>
 #import "PMDatabase.h"
 #import "PMPackagePrivate.h"
+#import "PMDatabasePrivate.h"
 
 #define kLocalDatabaseName "local"
 
@@ -33,25 +34,8 @@
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase
 {
-	alpm_list_t *node;
-	pmdb_t *db = NULL;
-	pmdb_t *tmpdb;
-	const char *dbname = [[theDatabase name] UTF8String];
+	pmdb_t *db = [theDatabase _database];
 	const char *pkgname = [aName UTF8String];
-
-	// This is stupid, PMDatabase has a reference to the pmdb_t
-	if(strcmp(dbname, kLocalDatabaseName) == 0) {
-		db = alpm_option_get_localdb();
-	} else {
-		node = alpm_option_get_syncdbs();
-		while(node != NULL && db == NULL) {
-			tmpdb = alpm_list_getdata(node);
-			if(strcmp(dbname, alpm_db_get_name(tmpdb)) == 0) {
-				db = tmpdb;
-			}
-			node = alpm_list_next(node);
-		}
-	}
 	self = [self _initUsingALPMPackage:alpm_db_get_pkg(db, pkgname)];
 	if(self != nil) {
 		_database = [theDatabase retain];

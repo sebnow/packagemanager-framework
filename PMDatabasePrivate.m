@@ -33,4 +33,9 @@
 	}
 	return self;
 }
+
+- (pmdb_t *) _database
+{
+	return _database;
+}
 @end
