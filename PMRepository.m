@@ -23,6 +23,9 @@
 #import "PMRepository.h"
 #import <alpm.h>
 
+NSString *const PMRepositoryWillRefreshNotification = @"PMRepositoryWillRefreshNotification";
+NSString *const PMRepositoryDidRefreshNotification = @"PMRepositoryDidRefreshNotification";
+
 @implementation PMRepository
 
 - (id) initWithName:(NSString *)aName
@@ -61,12 +64,16 @@
 
 - (void) refresh
 {
+	[[NSNotificationCenter defaultCenter] postNotificationName:PMRepositoryWillRefreshNotification object:self];
 	alpm_db_update(0, _database);
+	[[NSNotificationCenter defaultCenter] postNotificationName:PMRepositoryDidRefreshNotification object:self];
 }
 
 - (void) forceRefresh
 {
+	[[NSNotificationCenter defaultCenter] postNotificationName:PMRepositoryWillRefreshNotification object:self];
 	alpm_db_update(1, _database);
+	[[NSNotificationCenter defaultCenter] postNotificationName:PMRepositoryDidRefreshNotification object:self];
 }
 
 - (NSArray *) servers

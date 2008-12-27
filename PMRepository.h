@@ -23,6 +23,9 @@
 #import <Foundation/Foundation.h>
 #import "PMDatabase.h"
 
+extern NSString *const PMRepositoryWillRefreshNotification;
+extern NSString *const PMRepositoryDidRefreshNotification;
+
 @interface PMRepository : PMDatabase {
 	NSMutableArray *_servers;
 }
