@@ -26,6 +26,8 @@
 		9E4BDE930EF15366000021DF /* PMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4BDE910EF15366000021DF /* PMDatabase.m */; };
 		9E4BDE980EF153AE000021DF /* PMPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E4BDE960EF153AE000021DF /* PMPackage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9E4BDE990EF153AE000021DF /* PMPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4BDE970EF153AE000021DF /* PMPackage.m */; };
+		9E513FB90F07602B008B17E6 /* NSArrayALPMListExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E513FB70F07602B008B17E6 /* NSArrayALPMListExtensions.h */; };
+		9E513FBA0F07602B008B17E6 /* NSArrayALPMListExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E513FB80F07602B008B17E6 /* NSArrayALPMListExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		9E4BDE910EF15366000021DF /* PMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDatabase.m; sourceTree = "<group>"; };
 		9E4BDE960EF153AE000021DF /* PMPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPackage.h; sourceTree = "<group>"; };
 		9E4BDE970EF153AE000021DF /* PMPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPackage.m; sourceTree = "<group>"; };
+		9E513FB70F07602B008B17E6 /* NSArrayALPMListExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSArrayALPMListExtensions.h; sourceTree = "<group>"; };
+		9E513FB80F07602B008B17E6 /* NSArrayALPMListExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayALPMListExtensions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,8 @@
 				9E201B8D0EF62901009571F1 /* PMTransaction.m */,
 				9E44BB040EF812D200D82117 /* PMPackageManager.h */,
 				9E44BB050EF812D200D82117 /* PMPackageManager.m */,
+				9E513FB70F07602B008B17E6 /* NSArrayALPMListExtensions.h */,
+				9E513FB80F07602B008B17E6 /* NSArrayALPMListExtensions.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -166,6 +172,7 @@
 				9E44BB060EF812D200D82117 /* PMPackageManager.h in Headers */,
 				9E0D7BF30F061B0C00A0D2F9 /* PMPackagePrivate.h in Headers */,
 				9E0D7BF90F061FE700A0D2F9 /* PMDatabasePrivate.h in Headers */,
+				9E513FB90F07602B008B17E6 /* NSArrayALPMListExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +240,7 @@
 				9E44BB070EF812D200D82117 /* PMPackageManager.m in Sources */,
 				9E0D7BF40F061B0C00A0D2F9 /* PMPackagePrivate.m in Sources */,
 				9E0D7BFA0F061FE700A0D2F9 /* PMDatabasePrivate.m in Sources */,
+				9E513FBA0F07602B008B17E6 /* NSArrayALPMListExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,49 +20,17 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#import "PMDatabase.h"
-#import <alpm.h>
-#import "PMPackage.h"
-#import "PMPackagePrivate.h"
-#import "NSArrayALPMListExtensions.h"
+#import <Foundation/Foundation.h>
+#import <alpm_list.h>
 
-@implementation PMDatabase
+@class PMDatabase;
 
-- (void) dealloc
-{
-	alpm_db_unregister(_database);
-	[super dealloc];
-}
+@interface NSArray (alpm_list_t)
++ (id) arrayWithPackageList:(alpm_list_t *)aList database:(PMDatabase *)theDatabase;
++ (id) arrayWithDatabaseList:(alpm_list_t *)aList;
+@end
 
-- (NSString *) name
-{
-	return _name;
-}
-
-- (NSArray *) packages
-{
-	alpm_list_t *list;
-	list = alpm_db_getpkgcache(_database);
-	return [NSArray arrayWithPackageList:list database:self];
-}
-
-- (NSArray *) filteredPackagesUsingPredicate:(NSPredicate *)thePredicate
-{
-	NSArray *packages = [self packages];
-	return [packages filteredArrayUsingPredicate:thePredicate];
-}
-
-- (PMPackage *) packageWithName:(NSString *)aName
-{
-	NSPredicate *predicate;
-	NSArray *results;
-	PMPackage *package = nil;
-	predicate = [NSPredicate predicateWithFormat:@"SELF.name == %@", aName];
-	results = [[self packages] filteredArrayUsingPredicate:predicate];
-	if([results count] > 0) {
-		package = [results objectAtIndex:0];
-	}
-	return package;
-}
-
+@interface NSMutableArray (alpm_list_t)
+- (id) initWithPackageList:(alpm_list_t *)aList database:(PMDatabase *)theDatabase;
+- (id) initWithDatabaseList:(alpm_list_t *)aList;
 @end
