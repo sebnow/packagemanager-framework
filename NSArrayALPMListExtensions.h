@@ -28,9 +28,12 @@
 @interface NSArray (alpm_list_t)
 + (id) arrayWithPackageList:(alpm_list_t *)aList database:(PMDatabase *)theDatabase;
 + (id) arrayWithDatabaseList:(alpm_list_t *)aList;
++ (id) arrayWithStringList:(alpm_list_t *)aList;
+- (id) initWithStringList:(alpm_list_t *)aList;
 @end
 
 @interface NSMutableArray (alpm_list_t)
 - (id) initWithPackageList:(alpm_list_t *)aList database:(PMDatabase *)theDatabase;
 - (id) initWithDatabaseList:(alpm_list_t *)aList;
+- (id) initWithStringList:(alpm_list_t *)aList;
 @end

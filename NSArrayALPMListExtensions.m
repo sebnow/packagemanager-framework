@@ -44,6 +44,24 @@
 	[tmp release];
 	return array;
 }
+
++ (id) arrayWithStringList:(alpm_list_t *)aList
+{
+	NSMutableArray *tmp;
+	NSArray *array;
+	tmp = [[NSMutableArray alloc] initWithStringList:aList];
+	array = [NSArray arrayWithArray:tmp];
+	[tmp release];
+	return array;
+}
+
+- (id) initWithStringList:(alpm_list_t *)aList
+{
+	NSMutableArray *anArray;
+	anArray = [[NSMutableArray alloc] initWithStringList:aList];
+	return [self initWithArray:anArray];
+}
+
 @end
 
 @implementation NSMutableArray (alpm_list_t)
@@ -77,6 +95,24 @@
 			database = [[PMDatabase alloc] _initUsingALPMDatabase:alpm_list_getdata(node)];
 			[self addObject:database];
 			[database release];
+			node = alpm_list_next(node);
+		}
+	}
+	return self;
+}
+
+- (id) initWithStringList:(alpm_list_t *)aList
+{
+	self = [self initWithCapacity:alpm_list_count(aList)];
+	if(self != nil) {
+		alpm_list_t *node;
+		NSString *string;
+
+		node = aList;
+		while(node != NULL) {
+			string = [[NSString alloc] initWithUTF8String:alpm_list_getdata(node)];
+			[self addObject:string];
+			[string release];
 			node = alpm_list_next(node);
 		}
 	}
