@@ -36,4 +36,13 @@
 	}
 	return self;
 }
+
+- (id) _initUsingALPMPackage:(pmpkg_t *)aPackage database:(PMDatabase *)aDatabase
+{
+	self = [self _initUsingALPMPackage:aPackage];
+	if(self != nil) {
+		_database = [aDatabase retain];
+	}
+	return self;
+}
 @end

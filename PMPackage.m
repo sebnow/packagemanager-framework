@@ -34,12 +34,8 @@
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase
 {
-	pmdb_t *db = [theDatabase _database];
-	const char *pkgname = [aName UTF8String];
-	self = [self _initUsingALPMPackage:alpm_db_get_pkg(db, pkgname)];
-	if(self != nil) {
-		_database = [theDatabase retain];
-	}
+	pmpkg_t *pkg = alpm_db_get_pkg([theDatabase _database], [aName UTF8String]);
+	self = [self _initUsingALPMPackage:pkg database:theDatabase];
 	return self;
 }
 

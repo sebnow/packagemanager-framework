@@ -23,6 +23,7 @@
 #import "PMDatabase.h"
 #import <alpm.h>
 #import "PMPackage.h"
+#import "PMPackagePrivate.h"
 
 @implementation PMDatabase
 
@@ -45,7 +46,6 @@
 	alpm_list_t *node;
 	PMPackage *package;
 	pmpkg_t *alpmPackage;
-	NSString *name;
 	NSArray *result;
 
 	list = alpm_db_getpkgcache(_database);
@@ -53,9 +53,7 @@
 	packages = [[NSMutableArray alloc] initWithCapacity:count];
 	for(node = list; node != NULL; node = alpm_list_next(node)) {
 		alpmPackage = alpm_list_getdata(node);
-		name = [[NSString alloc] initWithUTF8String:alpm_pkg_get_name(alpmPackage)];
-		package = [[PMPackage alloc] initWithName:name fromDatabase:self];
-		[name release];
+		package = [[PMPackage alloc] _initUsingALPMPackage:alpmPackage database:self];
 		[packages addObject:package];
 		[package release];
 	}

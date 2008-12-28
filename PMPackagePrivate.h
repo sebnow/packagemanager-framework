@@ -26,4 +26,5 @@
 
 @interface PMPackage (Private)
 - (id) _initUsingALPMPackage:(pmpkg_t *)aPackage;
+- (id) _initUsingALPMPackage:(pmpkg_t *)aPackage database:(PMDatabase *)aDatabase;
 @end
