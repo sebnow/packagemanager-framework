@@ -27,6 +27,7 @@
 #import "PMDatabase.h"
 #import "PMPackagePrivate.h"
 #import "PMDatabasePrivate.h"
+#import "NSArrayALPMListExtensions.h"
 
 #define kLocalDatabaseName "local"
 
@@ -138,6 +139,69 @@
 	pmdb_t *local = alpm_option_get_localdb();
 	const char *pkgName = alpm_pkg_get_name(_package);
 	return alpm_db_get_pkg(local, pkgName) != NULL;
+}
+
+- (NSArray *) licenses
+{
+	if(_licenses == nil) {
+		alpm_list_t *list = alpm_pkg_get_licenses(_package);
+		_licenses = [[NSArray alloc] initWithStringList:list];
+	}
+	return _licenses;
+}
+
+- (NSArray *) groups
+{
+	if(_groups == nil) {
+		alpm_list_t *list = alpm_pkg_get_groups(_package);
+		_groups = [[NSArray alloc] initWithStringList:list];
+	}
+	return _groups;
+}
+
+- (NSArray *) optionalDependencies
+{
+	if(_optionalDependencies == nil) {
+		alpm_list_t *list = alpm_pkg_get_optdepends(_package);
+		_optionalDependencies = [[NSArray alloc] initWithStringList:list];
+	}
+	return _optionalDependencies;
+}
+
+- (NSArray *) conflicts
+{
+	if(_conflicts == nil) {
+		alpm_list_t *list = alpm_pkg_get_conflicts(_package);
+		_conflicts = [[NSArray alloc] initWithStringList:list];
+	}
+	return _conflicts;
+}
+
+- (NSArray *) provides
+{
+	if(_provides == nil) {
+		alpm_list_t *list = alpm_pkg_get_provides(_package);
+		_provides = [[NSArray alloc] initWithStringList:list];
+	}
+	return _provides;
+}
+
+- (NSArray *) replaces
+{
+	if(_replaces == nil) {
+		alpm_list_t *list = alpm_pkg_get_replaces(_package);
+		_replaces = [[NSArray alloc] initWithStringList:list];
+	}
+	return _replaces;
+}
+
+- (NSArray *) files
+{
+	if(_files == nil) {
+		alpm_list_t *list = alpm_pkg_get_files(_package);
+		_files = [[NSArray alloc] initWithStringList:list];
+	}
+	return _files;
 }
 
 @end

@@ -34,6 +34,13 @@
 	NSString *_description;
 	NSString *_packager;
 	NSNumber *_size;
+	NSArray *_licenses;
+	NSArray *_groups;
+	NSArray *_optionalDependencies;
+	NSArray *_conflicts;
+	NSArray *_provides;
+	NSArray *_replaces;
+	NSArray *_files;
 }
 
 - (NSString *)name;
@@ -44,6 +51,58 @@
 - (NSNumber *)size;
 - (NSString *)filename;
 - (BOOL) isInstalled;
+
+/** Return an array licenses as NSString objects
+ @return Array containing NSStrings objects, representing licenses
+ */
+- (NSArray *) licenses;
+
+/** Return an array of groups this package belongs to, as NSString objects
+ @return Array containing NSString objects, representing groups
+ */
+- (NSArray *) groups;
+
+/** Return an array of packge names this package optionally depends on
+
+ An optional dependency is one which is not required for this package to
+ function, but, if installed, provides additional functionality.
+
+ @return Array containing NSString objects, representing optional dependencies
+ */
+- (NSArray *) optionalDependencies;
+
+/** Return an array of the names of conflicting packages, as NSString objects
+ @return Array containing NSString objects, representing conflicting packages
+ */
+- (NSArray *) conflicts;
+
+/** Return an array of virtual provisions the package provides, as NSString
+ objects
+
+ A virtual provision may, but does not necessarily have to be, another package
+ that this package can replace. This allows a package to provide a depencency
+ other than its own package name.
+
+ @return Array containing NSString objects, representing virtual provisions
+ */
+- (NSArray *) provides;
+
+/** Return an array of the names of packages this package should replace, as
+ NSString objects
+
+ Replacing a package means that the specified backage should be removed, and
+ this package should be installed in its place. This allows packages to be
+ renamed, by specifying the old package name in the replaces property. It also
+ allows multiple packages to be merged into one.
+
+ @return Array containing NSString objects, representing packages to be replaced
+ */
+- (NSArray *) replaces;
+
+/** Return an array of files this package contains, as NSString objects
+ @return Array containing NSString objects, representing file paths in the package
+ */
+- (NSArray *) files;
 
 - (id) initWithName:(NSString *)aName fromDatabase:(PMDatabase *)theDatabase;
 
