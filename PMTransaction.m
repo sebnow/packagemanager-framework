@@ -26,8 +26,6 @@
 #import "PMLocalDatabase.h"
 
 @interface PMTransaction (Private)
-- (void) _setFlag:(pmtransflag_t)flag;
-- (void) _unsetFlag:(pmtransflag_t)flag;
 - (void) _setOrUnsetFlag:(pmtransflag_t)flag dependingOnBool:(BOOL)value;
 @end
 
@@ -181,22 +179,12 @@
 
 #pragma mark Private methods
 
-- (void) _setFlag:(pmtransflag_t)flag
-{
-	_flags |= flag;
-}
-
-- (void) _unsetFlag:(pmtransflag_t)flag
-{
-	_flags &= (~flag);
-}
-
 - (void) _setOrUnsetFlag:(pmtransflag_t)flag dependingOnBool:(BOOL)value
 {
 	if(value) {
-		[self _setFlag:flag];
+		_flags |= flag;
 	} else {
-		[self _unsetFlag:flag];
+		_flags &= (~flag);
 	}
 }
 
