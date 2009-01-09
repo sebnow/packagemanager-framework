@@ -23,6 +23,7 @@
 #import "PMTransaction.h"
 #import <alpm.h>
 #import "PMPackage.h"
+#import "PMLocalDatabase.h"
 
 @interface PMTransaction (Private)
 - (void) _setFlag:(pmtransflag_t)flag;
@@ -31,6 +32,14 @@
 @end
 
 @implementation PMTransaction
+
++ (void) initialize
+{
+	// Ensure local database is registered
+	// TODO: There has to be a better way to do this
+	PMLocalDatabase *localDatabase = [PMLocalDatabase sharedDatabase];
+	NSAssert(localDatabase != nil, @"Local database not registered");
+}
 
 - (id) init
 {
