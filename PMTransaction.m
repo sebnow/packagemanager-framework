@@ -154,7 +154,7 @@
 	}
 
 	if([_syncTargets count] > 0) {
-		status = alpm_trans_init(PM_TRANS_TYPE_UPGRADE, _flags, NULL, NULL, NULL);
+		status = alpm_trans_init(PM_TRANS_TYPE_SYNC, _flags, NULL, NULL, NULL);
 		NSAssert(status == 0, @"unable to initialise transaction");
 		enumerator = [_syncTargets objectEnumerator];
 		while((package = [enumerator nextObject]) != nil) {
