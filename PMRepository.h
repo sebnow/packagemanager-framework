@@ -23,18 +23,55 @@
 #import <Foundation/Foundation.h>
 #import "PMDatabase.h"
 
+/** A notification sent before a repository is refreshed.
+ The notification object is the PMRepository which will be refreshed. */
 extern NSString *const PMRepositoryWillRefreshNotification;
+
+/** A notification sent after a respository is refreshed.
+ The notification object is the PMRepository which was refreshed. */
 extern NSString *const PMRepositoryDidRefreshNotification;
 
+/** A remote database containing a collection of packages
+ A repository has one or more servers, and these must be added before packages
+ can be retrieved from the repository. This can be done using the
+ #initWithName:servers:, or by adding each server manually using
+ #addServerWithURL:. When there is at least one server registered, the #refresh
+ message should be sent to retrieve the package list from the server.
+ */
 @interface PMRepository : PMDatabase {
+	/** Array of servers to be used when retrieving packages */
 	NSMutableArray *_servers;
 }
 
+/** Initialize a remote repository with the specified name
+ @param aName the name of the repository
+ */
 - (id) initWithName:(NSString *)aName;
+
+/** Initialize a remote repository with the specified name and servers
+ @param aName the name of the repository
+ @param theServers an array of servers the repository will use
+ */
 - (id) initWithName:(NSString *)aName servers:(NSArray *)theServers;
+
+/** Add a server to the repository.
+ @param theURL a URL pointing to a server
+ */
 - (void) addServerWithURL:(NSURL *)theURL;
+
+/** Retrieve a new list of packages.
+ Each server will be used in turn. If the first server fails, the second will
+ be used, and so on.
+ */
 - (void) refresh;
+
+/** Force the retrieval of a new list of packages.
+ The list of packages will be retrieved regardless of whether the repository is
+ up to date or not. */
 - (void) forceRefresh;
+
+/** Return the array of servers.
+ @return array of servers */
 - (NSArray *) servers;
 
 @end

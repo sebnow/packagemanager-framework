@@ -25,6 +25,13 @@
 #import <alpm.h>
 
 @interface PMPackage (Private)
+/* Initialize a PMPackage object using a liblapm package reference. This should
+ only be used for initializing PMPackage wrapper objects from existing libalpm
+ pmpkg_t structures (i.e., low-level operations). */
 - (id) _initUsingALPMPackage:(pmpkg_t *)aPackage;
+
+/* Initialize a PMPackage object using a libalpm package reference and an
+ existing PMDatabase object. This is so that PMDatabase objects are not
+ duplicated (two objects having the same pmpkg_t reference). */
 - (id) _initUsingALPMPackage:(pmpkg_t *)aPackage database:(PMDatabase *)aDatabase;
 @end

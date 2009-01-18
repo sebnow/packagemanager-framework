@@ -23,10 +23,15 @@
 #import <Foundation/Foundation.h>
 #import "PMDatabase.h"
 
+/** The local database, containing packages installed on the system
+ @remarks This is a singleton class. Use #sharedDatabase to retrieve the shared
+ instance.
+ */
 @interface PMLocalDatabase : PMDatabase {
 
 }
 
+/** Return the shared instance of PMLocalDatabase */
 + (PMLocalDatabase *) sharedDatabase;
 
 @end

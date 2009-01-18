@@ -25,6 +25,15 @@
 #import <alpm.h>
 
 @interface PMDatabase (Private)
+/* Initialize a PMDatabase object using a libalpm database reference.
+ This is only meant for subclasses, as a way of setting the _database instance
+ variable and associated properties, and in fact should not be used at all,
+ however this seems like the best solution. */
 - (id) _initUsingALPMDatabase:(pmdb_t *)aDatabase;
+
+/* Returns a reference to the underlying libalpm database. This is only to be
+ used by other low-level classes in the framework. Normally the @package scope
+ modifier would be used, but it is not supported by standard GCC, so we have to
+ settle for a private method. */
 - (pmdb_t *) _database;
 @end
